@@ -4,10 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
-class IsUser
+class IsAdmin
 {
     /**
      * Handle an incoming request.
@@ -16,14 +16,14 @@ class IsUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->role->nama == "user"){
+        if (Auth::user()->role->nama != "user") {
             ## redirect to home page
             // return redirect("/welcome");
             return abort(403);
-        }else{
+        } else {
             ## redirect to admin page
             // abort(403);
             return $next($request);
-        }   
+        }
     }
 }
